@@ -1,3 +1,4 @@
 env
 chat/__pycache__
+.env
 chatapp/__pycache__
