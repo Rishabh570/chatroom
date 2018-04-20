@@ -1,41 +1,74 @@
-{% extends 'example/_base.html' %}
+{% extends 'chatapp/_base.html' %}
 
 {% block content %}
-  <a href="{% url 'example:log_out' %}">Log out</a>
+  <a href="{% url 'chatapp:log_out' %}">Log out</a>
+  <link rel="stylesheet" href="{% static "css/user_list.css" %}">
   <br>
-  <ul>
+  <h1>Welcome to homepage!</h1>
+  <!-- <ul>
     {% for user in users %}
       <!-- Escape HTML to prevent XSS attacks. -->
-      <li data-username="{{ user.username|escape }}">
+      <!-- <li data-username="{{ user.username|escape }}">
         {{ user.username|escape }}: {{ user.status|default:'Offline' }}
       </li>
     {% endfor %}
-  </ul>
+  </ul> -->
+  <div class="user_list" style="background-color: tomato;">
+    <h2>Here all users will get aligned up!!</h2>
+    <ul class="users"></ul>
+  </div>
 {% endblock content %}
 
 {% block script %}
   <script>
     var socket = new WebSocket('ws://' + window.location.host + '/list/');
 
-    socket.onopen = function open() {
+    socket.onopen = function () {
       console.log('WebSockets connection created.');
     };
 
-    socket.onmessage = function message(event) {
+    socket.onclose = function () {
+      console.log("Disconnected from socket");
+    };
+
+    socket.onmessage = function (event) {
+      var data = JSON.parse(event.data);
+      console.log("Got websocket message " + event.data);
+
+      // Decode the JSON
       var data = JSON.parse(event.data);
 
-      // Escape JavaScript to prevent XSS attacks.
-      var username = encodeURI(data['username']);
-      var user = $('li').filter(function () {
-        return $(this).data('username') == username;
-      });
+      // Handle errors
+      if (data.error) {
+        alert(data.error);
+        return;
+      }else if(data.is_logged_in) {
+        console.log(`username is: ${data.username}`);
 
-      if (data['is_logged_in']) {
-        user.html(username + ': Online');
+        var connect_div = "<div class='user' id='"+data.username+"'>" +
+                          "<h3>" + data.username + "</h3>" +
+                          "<p>: Online</p>" +
+                          "</div>"
+
+        $('.users').append(connect_div);
+
+      }else if(!data.is_logged_in) {
+        console.log("disconnect happened!");
+        return;
+      }else {
+        console.log("not entered any if/else");
       }
-      else {
-        user.html(username + ': Offline');
-      }
+      
+      // var user = $('li').filter(function () {
+      //   return $(this).data('username') == username;
+      // });
+
+      // if (data['is_logged_in']) {
+      //   user.html(username + ': Online');
+      // }
+      // else {
+      //   user.html(username + ': Offline');
+      // }
     };
 
     if (socket.readyState == WebSocket.OPEN) {
