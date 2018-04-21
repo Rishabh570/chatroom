@@ -9,7 +9,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         self.user_name = self.scope["user"].username
 
         if self.scope["user"].is_anonymous:
-            print("anonymous")
             await self.close()
         else:
             # Join room group
@@ -30,13 +29,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
 
             # For accepting the connection
             await self.accept()
-
-            # Tell client to execute "connect" code
-            await self.send_json({
-                "connect": True,
-            })
-
-            
 
 
     async def disconnect(self, close_code):
@@ -62,38 +54,26 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             self.channel_name,
         )
 
-        # Tell client to execute "disconnect" code
-        await self.send_json({
-            "connect": False,
-        })
-
 
     async def receive_json(self, text_data):
         """
         Runs when client executes "socket.send" to send some data to webSocket server.
         """
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
-
-        # Send message to room group
-        await self.channel_layer.group_send(
+        print(text_data)
+        load_message = json.loads(text_data)
+        print(load_message)
+        message = load_message["message"]
+        command = load_message["command"]
+        print('\n', 'message is: ', message, '\n')
+        print('\n', 'command is: ', command, '\n')
+        if(command == "send"):
+            await self.channel_layer.group_send(
             "list",
             {
-                "type": "chat.message",
+                "type": "chat.send",
+                "username": self.user_name,
                 "message": message,
-                "username": self.scope["user"].username,
-            }
-        )
-
-    # Receive message from room group
-    # def chat_message(self, event):
-    #     message = event['message']
-
-    #     # Send message to WebSocket
-    #     self.send(text_data=json.dumps({
-    #         "message": message
-    #     }))
-
+            })
 
     # GROUP SEND HANDLERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -107,5 +87,32 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             {
                 "username": event["username"],
                 "is_logged_in": event["is_logged_in"],
+            },
+        )
+
+    async def chat_end(self, event):
+        """
+        Called at the end of user's connection to webSocket.
+        """
+
+        # Send a message down to the client
+        await self.send_json(
+            {
+                "username": event["username"],
+                "is_logged_in": event["is_logged_in"],
+            },
+        )
+
+    async def chat_send(self, event):
+        """
+        Called when user sends a message to a group.
+        """
+
+        # Send a message down to the client
+        await self.send_json(
+            {
+                "echo_to_client": True,
+                "username": event["username"],
+                "message": event["message"],
             },
         )

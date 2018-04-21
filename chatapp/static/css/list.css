@@ -1,0 +1,150 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#head {
+    display: block;
+    text-align: center;
+    font-family: sans-serif;
+    font-style: 2rem;
+    color: coral;
+
+}
+
+.chat-log {
+    width: 40%;
+    margin: auto;
+    display: block;
+    height: 300px;
+    border-radius: 1em;
+    border: 0.3em solid rgb(11, 15, 17);
+    background-color: #e3e3e3;
+    font-family: sans-serif;
+    font-size: 1.2rem;
+    overflow: auto;
+    padding: 20px;
+}
+#chat-form {
+    width: 30%;
+    padding: 30px;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+#chat-input {
+    width: 25%;
+    min-width: 20em;
+    height: 30px;
+    border-radius: 2em;
+    border: 2px solid green;
+    background-color: rgba(196, 119, 4, 0.089);
+    font-family: sans-serif;
+    margin: auto;
+    padding: 5px 10px;
+}
+#chat-input:focus {
+    border: 1px solid lightcoral;
+    border-radius: 0;
+}
+
+#chat-button {
+    width: 100px;
+    min-width: 70px;
+    height: 30px;
+    font-family: serif;
+    font-weight: 600;
+    border-radius: 0.5em;
+    border: 1px solid black;
+}
+
+.user_list {
+    position: absolute;
+    top: 14em;
+    left: 1em;
+    width: 20%;
+    padding: 30px;
+    border-radius: 1em;
+    display: inline-block;
+    background-color: yellow;
+}
+.user_list h2 {
+    font-family: sans-serif;
+    font-style: 1.5rem;
+    color: brown;
+    /* display: block; */
+    /* margin: auto; */
+    font-weight: normal;
+}
+.users {
+    /* background-color: lightblue; */
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+}
+
+
+/* #========================================================================================================================== */
+/* #===================#===================#============ SIGN UP #===================#===================#=================== */
+
+#signup-head {
+    font-family: sans-serif;
+    font-size: 7rem;
+    color: coral;
+    display: block;
+    margin: auto;
+}
+
+#hr {
+    width: 70%;
+    color: skyblue;
+    float: left;
+    display: block;
+    height: 4px;
+    background-color: rgba(11, 231, 247, 0.253);
+}
+
+.gap {
+    margin: 10px;
+    display: block;
+    width: 100%;
+    height: 10px;
+}
+.form {
+    margin-top: 50px;
+    height: 100px;
+    width: 50%;
+    height: 200px;
+    display: block;
+    margin: auto;
+    /* background-color: yellow; */
+}
+.form-elements {
+
+    margin-top: 10px;
+    font-family: sans-serif;
+    font-size: 2rem;
+    font-weight: normal;
+    text-align: center;
+}
+
+.footer {
+    display: block;
+    width: 80%;
+    height: 50px;
+    margin: auto;
+    margin-top: 20px;
+    padding-left: 10%;
+    box-sizing: border-box;
+}
+#signup-submit {
+    width: 100px;
+    height: 28px;
+    font-family: sans-serif;
+    display: inline-block;
+}
+#signup-footer {
+    display: inline-block;
+}

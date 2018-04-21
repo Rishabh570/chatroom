@@ -3,13 +3,23 @@
 {% block content %}
   <form action="/signup/" method="post">
     {% csrf_token %}
-    {% for field in form %}
-      <div>
-        {{ field.label_tag }}
-        {{ field }}
+    <h2 id="signup-head">Sign up</h2>
+    <hr id="hr">
+
+    <div class="gap"></div>
+    <div class="form">
+      {% for field in form %}
+        <div class="form-elements">
+          <label>{{ field.label_tag }}</label>
+          {{ field }}
+        </div>
+      {% endfor %}
+      <div class="footer">
+        <button type="submit" id="signup-submit">Sign up</button>
+        <p id="signup-footer">Already have an account? <a href="/login/">Log in!</a></p>
       </div>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-    <p>Already have an account? <a href="/login/">Log in!</a></p>
+      
+    </div>
+   
   </form>
 {% endblock content %}
