@@ -1,23 +1,36 @@
 {% extends 'chatapp/_base.html' %}
 
 {% block content %}
-  <a href="{% url 'chatapp:log_out' %}">Log out</a>
+  <a class="btn btn-outline-danger ml-4" href="{% url 'chatapp:log_out' %}">Log out</a>
   <br>
-  <h1 id="head">Welcome to this Chat Group</h1>
+  
+    <div class="container-fluid">
+      <h1 id="head" class="display-4" style="color: rgba(30, 161, 194, 0.945);">Welcome to this Chat Group</h1>
 
-  <form id="chat-form">
-    <input type="text" id="chat-input" placeholder="Enter your message...">
-    <button id="chat-button">Send</button>
-  </form>
-
-  <div class="chat-log"></div>
-
-  <div class="user_list">
-    <ul class="users">
-      <h2>Available Users</h2>
-    </ul>
-  </div>
-
+      <div class="row px-2">
+        <form class="col-md-8 d-block ml-0" id="chat-form">
+          <div class="input-group">
+            <input type="text" class="form-control" id="chat-input" placeholder="Enter your message..." aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <button class="btn btn-outline-info my-2 ml-0 d-block" id="chat-button">Send</button>
+        </form>    
+      </div>
+    
+      <div class="row px-4">
+        <div class="container-fluid col-md-8 chat-log px-3 border-top-0 border border-dark" style="background-color: rgba(190, 29, 96, 0.219);">
+          <h3 class="display-4 border-primary border-bottom">Chat Log</h3>
+        </div>
+  
+        <div class="col-md-4 user_list px-3"  style="background-color: rgba(6, 28, 41, 0.301);">
+          <ul class="users">
+            <p class="lead">Available Users</p>
+          </ul>
+        </div>
+  
+      </div>
+    </div>
+    
+  
 {% endblock content %}
 
 {% block script %}
