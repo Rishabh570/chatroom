@@ -1,6 +1,17 @@
 # chatroom
-A simple chatroom made with Django Channels!
 
-### Work In Progress
+A simple chatroom made with **Django Channels!**
 
-Currently working on user's online status marker and realtime messaging...
+### How to contribute
+
+Just follow some simple ubiquitous steps to get going...
+
+- `git clone https://github.com/Rishabh570/chatroom.git`
+
+- `cd chatroom`
+
+- `virtualenv {env_name}`
+
+- `pip install -r requirements.txt`
+
+- `python manage.py runserver`
