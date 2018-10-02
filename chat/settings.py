@@ -138,4 +138,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "chatapp/static"),
     #'/var/www/static/',
 ]
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), '/Users/hp/chatroom-master/chatroom/static')
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), '/static/')
